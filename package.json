@@ -1,0 +1,46 @@
+{
+  "name": "@idoa/ada-pay-button",
+  "version": "0.1.0",
+  "private": false,
+  "license": "MIT",
+  "description": "Minimal ADA Pay Button for Cardano wallets (CIP-30)",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsup src/index.js --format esm --platform browser --target es2020 --no-dts --external react --external react-dom --clean --out-dir dist",
+    "dev": "tsup src/index.js --format esm --platform browser --target es2020 --no-dts --external react --external react-dom --external lucid-cardano --watch --clean --out-dir dist"
+  },
+  "dependencies": {},
+  "peerDependencies": {
+  "react": ">=18",
+  "react-dom": ">=18",
+  "lucid-cardano": "^0.10.11"
+},
+"peerDependenciesMeta": {
+  "lucid-cardano": {
+    "optional": true
+  }
+},
+  "devDependencies": {
+    "tsup": "^8.0.0",
+    "typescript": "^5.9.3"
+  },
+  "keywords": [
+    "cardano",
+    "ada",
+    "payment",
+    "cip-30",
+    "wallet",
+    "blockchain"
+  ],
+  "author": "IDOA"
+}
