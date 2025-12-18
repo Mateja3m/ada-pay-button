@@ -1,6 +1,8 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { AdaPayButton } from "@idoa/ada-pay-button";
 
+// Example testnet address used for demos only.
+// Replace with your own address before sending funds.
 const DEFAULT_RECIPIENT =
   "addr_test1qq2kg0u7955pxx4d3nvjk23mrtfqxmhnqdyhv7n0e9958kfrsae7ftn3ehv353laaltrhzmv4wm8qvr29tdwz5x6rwpqa52efl";
 

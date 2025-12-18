@@ -7,7 +7,7 @@ function getBlockfrostUrl(network) {
 }
 
 export async function payWithLucid({
-  lucidDeps, 
+  lucidDeps,
   blockfrostApiKey,
   network,
   walletName,
@@ -15,6 +15,7 @@ export async function payWithLucid({
   lovelace,
   onStatus,
 }) {
+  // missing config checks
   if (!lucidDeps?.Blockfrost || !lucidDeps?.Lucid) {
     throw new Error(
       "Missing lucidDeps. Pass { Blockfrost, Lucid } from lucid-cardano."
@@ -22,35 +23,58 @@ export async function payWithLucid({
   }
   if (!blockfrostApiKey) throw new Error("Missing blockfrostApiKey");
   if (!network) throw new Error("Missing network");
+  const allowedNetworks = new Set(["Mainnet", "Preprod", "Preview"]);
+  if (!allowedNetworks.has(network)) {
+    throw new Error('Invalid network. Use "Mainnet", "Preprod", or "Preview".');
+  }
+
   if (!walletName) throw new Error("Missing walletName");
   if (!toAddress) throw new Error("Missing toAddress");
+  if (
+    lovelace === undefined ||
+    lovelace === null ||
+    String(lovelace).trim() === ""
+  ) {
+    throw new Error("Missing lovelace amount");
+  }
 
+  // locate the CIP-30 wallet on window.cardano
   const wallet = window?.cardano?.[walletName];
   if (!wallet?.enable)
     throw new Error(`Wallet "${walletName}" not found on window.cardano`);
 
-  onStatus?.("enabling_wallet");
+  onStatus?.("enabling wallet");
   const api = await wallet.enable();
 
   const { Blockfrost, Lucid } = lucidDeps;
 
-  onStatus?.("initializing_lucid");
+  onStatus?.("initializing lucid");
   const provider = new Blockfrost(getBlockfrostUrl(network), blockfrostApiKey);
   const lucid = await Lucid.new(provider, network);
   lucid.selectWallet(api);
 
   const amount = Number(lovelace);
 
-  onStatus?.("building_tx");
+  if (!Number.isFinite(amount)) {
+    throw new Error("Lovelace amount must be a number");
+  }
+  if (!Number.isInteger(amount)) {
+    throw new Error("Lovelace amount must be an integer");
+  }
+  if (amount <= 0) {
+    throw new Error("Lovelace amount must be greater than zero");
+  }
+
+  onStatus?.("building tx");
   const tx = await lucid
     .newTx()
     .payToAddress(toAddress, { lovelace: amount })
     .complete();
 
-  onStatus?.("signing_tx");
+  onStatus?.("signing tx");
   const signed = await tx.sign().complete();
 
-  onStatus?.("submitting_tx");
+  onStatus?.("submitting tx");
   const txHash = await signed.submit();
 
   onStatus?.("submitted");
