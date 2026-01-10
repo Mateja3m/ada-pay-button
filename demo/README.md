@@ -21,6 +21,13 @@ It exists to:
 
 ## Running the Demo
 
+Requirements:
+- A CIP-30 compatible wallet (Lace, Eternl, Vespr, etc.)
+- Wallet set to **Preview** network
+- Test ADA in the wallet
+- A Blockfrost **Preview** API key
+- Blockfrost offers a free tier suitable for local testing
+
 ```bash
 cd demo
 npm install
