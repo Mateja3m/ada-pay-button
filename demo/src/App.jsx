@@ -586,7 +586,7 @@ export default function App() {
                       setStatus("error");
                     }}
                   >
-                    Pay with ADA
+                    ₳ Pay with ADA
                   </AdaPayButton>
                 )}
               </div>
