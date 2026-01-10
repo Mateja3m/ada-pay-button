@@ -585,9 +585,7 @@ export default function App() {
                       setErr(String(e?.message || e));
                       setStatus("error");
                     }}
-                  >
-                    ₳ Pay with ADA
-                  </AdaPayButton>
+                  />
                 )}
               </div>
 
