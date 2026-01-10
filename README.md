@@ -17,7 +17,7 @@ no UI framework dependency.
 - CIP-30 wallet support
 - Simple ADA payments (lovelace only)
 - Uses **Lucid** for transaction construction
-- Uses **Blockfrost** as the default chain provider (configurable)
+- Chain provider (e.g. Blockfrost) supplied by the consuming application
 - Supports **Preview** and **Preprod** networks (Mainnet-ready)
 - No UI framework dependency
 - Browser-safe (ESM only, no `require`, no Node APIs)
@@ -35,6 +35,16 @@ This package intentionally does **not** include:
 - Wallet abstraction beyond CIP-30
 
 These are explicitly out of scope for the initial release.
+
+---
+
+## Chain Provider
+
+`@idoa/ada-pay-button` does not hardcode any chain provider.
+
+The consuming application is responsible for supplying Lucid dependencies
+(e.g. `Blockfrost`, `Lucid`). The included demo app uses Blockfrost purely as
+a reference implementation for submitting real testnet transactions.
 
 ---
 
