@@ -53,7 +53,11 @@ export async function payWithLucid({
   const lucid = await Lucid.new(provider, network);
   lucid.selectWallet(api);
 
-  const amount = Number(lovelace);
+if (!Number.isSafeInteger(amount)) {
+  throw new Error(
+    "Lovelace amount is too large (exceeds JS safe integer range)"
+  );
+}
 
   if (!Number.isFinite(amount)) {
     throw new Error("Lovelace amount must be a number");

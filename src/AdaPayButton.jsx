@@ -11,7 +11,8 @@ export function AdaPayButton({
   onSuccess,
   onError,
   disabled = false,
-  children = "Pay with ADA",
+  showAdaSymbol = true,
+  children,
 }) {
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState("");
@@ -29,7 +30,6 @@ export function AdaPayButton({
       lovelace !== undefined &&
       lovelace !== null &&
       String(lovelace).length > 0
-
     );
   }, [
     disabled,
@@ -81,7 +81,9 @@ export function AdaPayButton({
           cursor: canPay ? "pointer" : "not-allowed",
         }}
       >
-        {loading ? "Processing..." : children}
+        {loading
+          ? "Processing..."
+          : children ?? (showAdaSymbol ? "₳ Pay with ADA" : "Pay with ADA")}
       </button>
 
       {status ? (

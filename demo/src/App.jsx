@@ -1,7 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { AdaPayButton } from "@idoa/ada-pay-button";
 
-// Example testnet address used for demos only.
 // Replace with your own address before sending funds.
 const DEFAULT_RECIPIENT =
   "addr_test1qq2kg0u7955pxx4d3nvjk23mrtfqxmhnqdyhv7n0e9958kfrsae7ftn3ehv353laaltrhzmv4wm8qvr29tdwz5x6rwpqa52efl";
@@ -140,7 +139,7 @@ export default function App() {
         {/* Header */}
         <div style={{ textAlign: "center", marginBottom: 18 }}>
           <h1 style={{ margin: 0, fontSize: 44, letterSpacing: -0.6 }}>
-            ADA Pay Button Demo (Vite)
+            ADA Pay Button Demo Application
           </h1>
           <p style={{ marginTop: 10, color: "#475569" }}>
             Connect a CIP-30 wallet on <b>{network}</b>, fund it with{" "}
