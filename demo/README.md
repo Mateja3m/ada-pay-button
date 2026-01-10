@@ -28,7 +28,18 @@ Requirements:
 - A Blockfrost **Preview** API key
 - Blockfrost offers a free tier suitable for local testing
 
+---
+
+## Local Development (Repository)
+
+If you clone this repository to work on the package or run the demo locally,
+you must build the package first.
+
+This is required because the demo consumes the package via a local file reference.
+
 ```bash
+npm install
+npm run build
 cd demo
 npm install
 npm run dev
