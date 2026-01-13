@@ -52,23 +52,12 @@ export async function payWithLucid({
   const provider = new Blockfrost(getBlockfrostUrl(network), blockfrostApiKey);
   const lucid = await Lucid.new(provider, network);
   lucid.selectWallet(api);
+  const amount =
+    typeof lovelace === "bigint" ? lovelace : BigInt(String(lovelace));
 
-if (!Number.isSafeInteger(amount)) {
-  throw new Error(
-    "Lovelace amount is too large (exceeds JS safe integer range)"
-  );
-}
-
-  if (!Number.isFinite(amount)) {
-    throw new Error("Lovelace amount must be a number");
-  }
-  if (!Number.isInteger(amount)) {
-    throw new Error("Lovelace amount must be an integer");
-  }
-  if (amount <= 0) {
+  if (amount <= 0n) {
     throw new Error("Lovelace amount must be greater than zero");
   }
-
   onStatus?.("building tx");
   const tx = await lucid
     .newTx()
